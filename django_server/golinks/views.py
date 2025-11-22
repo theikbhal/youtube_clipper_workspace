@@ -1,7 +1,8 @@
 import json
 from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
+
 from .models import GoLink
 
 
@@ -56,3 +57,35 @@ def golink_detail(request, key):
 def go_redirect(request, key):
     link = get_object_or_404(GoLink, key=key)
     return HttpResponseRedirect(link.url)
+
+
+def golinks_ui(request):
+    """
+    Simple web page:
+    - GET: show form + list
+    - POST: create or update a GoLink
+    """
+    if request.method == "POST":
+        key = request.POST.get("key", "").strip()
+        url = request.POST.get("url", "").strip()
+        description = request.POST.get("description", "").strip()
+
+        if key and url:
+            # if key exists, update; otherwise create
+            GoLink.objects.update_or_create(
+                key=key,
+                defaults={"url": url, "description": description},
+            )
+
+        # After saving, redirect to avoid form re-submit on refresh
+        return redirect("golinks_ui")
+
+    # GET: show all links
+    links = GoLink.objects.all().order_by("key")
+    return render(request, "golinks/manage.html", {"links": links})
+
+
+def delete_golink(request, key):
+    link = get_object_or_404(GoLink, key=key)
+    link.delete()
+    return redirect("golinks_ui")

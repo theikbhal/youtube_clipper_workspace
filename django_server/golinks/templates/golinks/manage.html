@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GoLinks Manager</title>
+</head>
+
+<body>
+    <h1>GoLinks Manager</h1>
+
+    <h3>Add / Update Link</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="key" placeholder="Key (eg: gt)" required><br><br>
+        <input type="url" name="url" placeholder="URL (eg: https://google.com)" required><br><br>
+        <input type="text" name="description" placeholder="Description"><br><br>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <hr>
+
+    <h3>Saved Links</h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Key</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>Action</th>
+
+        </tr>
+        {% for link in links %}
+        <tr>
+            <td>{{ link.key }}</td>
+            <td>
+                <a href="/go/{{ link.key }}/" target="_blank">
+                    {{ link.url }}
+                </a>
+            </td>
+            <td>{{ link.description }}</td>
+            <td>
+                <a href="/go/delete/{{ link.key }}/">Delete</a>
+            </td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No links yet</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
