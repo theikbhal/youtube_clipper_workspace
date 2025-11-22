@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-ut2m)61&0&o=vw&v__(x(x!dp(agjwufq#khqz*p0ldoair20l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "34.14.206.195",
+    "clipper.tawid.in",
+    "*",
+]
 
 
 # Application definition
