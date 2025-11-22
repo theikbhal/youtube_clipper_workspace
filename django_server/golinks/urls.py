@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import golinks, golink_detail, go_redirect, golinks_ui, delete_golink
+from .views import golinks, golink_detail, go_redirect, golinks_ui, delete_golink, go_home
 
 urlpatterns = [
 
