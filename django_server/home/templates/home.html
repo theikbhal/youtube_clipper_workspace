@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tawhid – Apps Home</title>
+</head>
+<body>
+    <h1>🚀 Tawhid Apps Dashboard</h1>
+
+    <ul>
+        {% for app in apps %}
+        <li>
+            <strong>{{ app.name }}</strong> –
+            <a href="{{ app.url }}">{{ app.url }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

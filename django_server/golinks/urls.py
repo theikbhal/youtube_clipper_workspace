@@ -3,7 +3,8 @@ from .views import golinks, golink_detail, go_redirect, golinks_ui, delete_golin
 
 urlpatterns = [
 
-   path("ui/", golinks_ui, name="golinks_ui"),
+    path("", go_home, name="golinks_home"),   # ✅ redirect /go/ → /go/ui/
+    path("ui/", golinks_ui, name="golinks_ui"),
 
     # API
     path("api/", golinks),

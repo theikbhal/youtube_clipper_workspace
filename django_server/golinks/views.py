@@ -6,6 +6,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import GoLink
 
 
+def go_home(request):
+    return redirect("/go/ui/")
+
 @csrf_exempt
 def golinks(request):
     # LIST
