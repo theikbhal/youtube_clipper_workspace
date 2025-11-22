@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>GoLinks Manager</title>
 </head>
-
 <body>
     <h1>GoLinks Manager</h1>
 
-    <h3>Add / Update Link</h3>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="key" placeholder="Key (eg: gt)" required><br><br>
-        <input type="url" name="url" placeholder="URL (eg: https://google.com)" required><br><br>
-        <input type="text" name="description" placeholder="Description"><br><br>
-
-        <button type="submit">Save</button>
+    <!-- SEARCH BAR -->
+    <h3>Search by Key</h3>
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search key..." value="{{ search_key }}">
+        <button type="submit">Search</button>
+        <a href="/go/ui/">Clear</a>
     </form>
 
     <hr>
 
+    <!-- ADD / UPDATE FORM -->
+    <h3>{% if edit_link %}Edit Link{% else %}Add / Update Link{% endif %}</h3>
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="key" placeholder="Key (eg: gt)" required
+            value="{% if edit_link %}{{ edit_link.key }}{% endif %}"
+            {% if edit_link %}readonly{% endif %}>
+        <br><br>
+
+        <input type="url" name="url" placeholder="URL (eg: https://google.com)" required
+            value="{% if edit_link %}{{ edit_link.url }}{% endif %}">
+        <br><br>
+
+        <input type="text" name="description" placeholder="Description"
+            value="{% if edit_link %}{{ edit_link.description }}{% endif %}">
+        <br><br>
+
+        <button type="submit">
+            {% if edit_link %}Update{% else %}Save{% endif %}
+        </button>
+
+        {% if edit_link %}
+            <a href="/go/ui/">Cancel Edit</a>
+        {% endif %}
+    </form>
+
+    <hr>
+
+    <!-- LIST LINKS -->
     <h3>Saved Links</h3>
     <table border="1" cellpadding="5">
         <tr>
@@ -27,8 +53,8 @@
             <th>URL</th>
             <th>Description</th>
             <th>Action</th>
-
         </tr>
+
         {% for link in links %}
         <tr>
             <td>{{ link.key }}</td>
@@ -39,16 +65,15 @@
             </td>
             <td>{{ link.description }}</td>
             <td>
-                <a href="/go/delete/{{ link.key }}/">Delete</a>
+                <a href="/go/ui/?edit={{ link.key }}">Edit</a> |
+                <a href="/go/delete/{{ link.key }}/" onclick="return confirm('Delete this link?')">Delete</a>
             </td>
-
         </tr>
         {% empty %}
         <tr>
-            <td colspan="3">No links yet</td>
+            <td colspan="4">No links found</td>
         </tr>
         {% endfor %}
     </table>
 </body>
-
 </html>

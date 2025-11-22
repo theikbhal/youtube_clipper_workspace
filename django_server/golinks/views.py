@@ -63,29 +63,49 @@ def go_redirect(request, key):
 
 
 def golinks_ui(request):
-    """
-    Simple web page:
-    - GET: show form + list
-    - POST: create or update a GoLink
-    """
+    # ----------------------------
+    # HANDLE CREATE / UPDATE
+    # ----------------------------
     if request.method == "POST":
         key = request.POST.get("key", "").strip()
         url = request.POST.get("url", "").strip()
         description = request.POST.get("description", "").strip()
 
         if key and url:
-            # if key exists, update; otherwise create
             GoLink.objects.update_or_create(
                 key=key,
                 defaults={"url": url, "description": description},
             )
 
-        # After saving, redirect to avoid form re-submit on refresh
         return redirect("golinks_ui")
 
-    # GET: show all links
-    links = GoLink.objects.all().order_by("key")
-    return render(request, "golinks/manage.html", {"links": links})
+    # ----------------------------
+    # HANDLE FILTER BY KEY
+    # ----------------------------
+    search_key = request.GET.get("search", "").strip()
+
+    if search_key:
+        links = GoLink.objects.filter(key__icontains=search_key).order_by("key")
+    else:
+        links = GoLink.objects.all().order_by("key")
+
+    # ----------------------------
+    # HANDLE EDIT PREFILL
+    # ----------------------------
+    edit_key = request.GET.get("edit", "").strip()
+    edit_link = None
+
+    if edit_key:
+        try:
+            edit_link = GoLink.objects.get(key=edit_key)
+        except GoLink.DoesNotExist:
+            edit_link = None
+
+    return render(request, "golinks/manage.html", {
+        "links": links,
+        "edit_link": edit_link,
+        "search_key": search_key
+    })
 
 
 def delete_golink(request, key):
