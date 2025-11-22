@@ -26,10 +26,18 @@ SECRET_KEY = 'django-insecure-ut2m)61&0&o=vw&v__(x(x!dp(agjwufq#khqz*p0ldoair20l
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "34.14.206.195",
-    "clipper.tawid.in",
-    "*",
+    "app.tawhid.in",
+    "127.0.0.1",
+    "localhost",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://app.tawhid.in",
+    # optional if you’ll use subdomains later:
+    # "https://*.tawhid.in",
+]
+
+
 
 
 # Application definition
