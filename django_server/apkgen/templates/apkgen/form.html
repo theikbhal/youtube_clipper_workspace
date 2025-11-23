@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>APK Generator</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 20px auto; }
+        .card { border: 1px solid #ddd; padding: 16px; border-radius: 8px; }
+        label { font-weight: 600; display: block; margin-top: 12px; }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+        }
+        .btn { margin-top: 16px; padding: 10px 20px; cursor: pointer; }
+        .success { background: #e6ffed; border: 1px solid #8bcf9a; padding: 10px; margin-bottom: 10px; }
+        .error { background: #ffecec; border: 1px solid #f5a4a4; padding: 10px; margin-bottom: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Internal APK Generator</h1>
+    <div class="card">
+
+        {% if apk_url %}
+            <div class="success">
+                ✅ APK generated!
+                <br>
+                <a href="{{ apk_url }}">⬇ Download APK</a>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form action="{% url 'apkgen_build' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>App Name</label>
+            {{ form.app_name }}
+
+            <label>Package Name</label>
+            {{ form.package_name }}
+
+            <label>HTML Content</label>
+            {{ form.html_content }}
+
+            <label>Icon (optional)</label>
+            {{ form.icon }}
+
+            <button type="submit" class="btn">Generate APK</button>
+        </form>
+    </div>
+</body>
+</html>
