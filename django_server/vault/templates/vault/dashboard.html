@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .card-category {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+        }
+
+        .field-group {
+            margin-bottom: 1rem;
+        }
+
+        .field-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .field-value {
+            font-family: 'Monaco', 'Consolas', monospace;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color 0.2s;
+        }
+
+        .copy-btn:hover {
+            color: var(--accent);
+        }
+
+        .payment-info {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-paid {
+            color: var(--danger);
+        }
+
+        .status-free {
+            color: var(--success);
+        }
+
+        .notes {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .hidden-text {
+            filter: blur(4px);
+            transition: filter 0.3s;
+            cursor: pointer;
+        }
+        
+        .hidden-text:hover {
+            filter: blur(0);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vault Dashboard</h1>
+            <div>
+                <a href="/admin/vault/account/add/" class="btn" target="_blank">
+                    <span>+ Add Account</span>
+                </a>
+                <a href="/" class="btn btn-outline" style="margin-left: 1rem;">Back Home</a>
+            </div>
+        </header>
+
+        <div class="grid">
+            {% for account in accounts %}
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">{{ account.name }}</h2>
+                        <span class="card-category">{{ account.get_category_display }}</span>
+                    </div>
+                    {% if account.payment_status == 'paid' %}
+                    <div class="status-badge status-paid">
+                        ● Paid
+                    </div>
+                    {% else %}
+                    <div class="status-badge status-free">
+                        ● Free
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if account.username %}
+                <div class="field-group">
+                    <div class="field-label">Username / Email</div>
+                    <div class="field-value">
+                        <span>{{ account.username }}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('{{ account.username }}')">
+                            📋
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if account.password %}
+                <div class="field-group">
+                    <div class="field-label">Password / Key</div>
+                    <div class="field-value">
+                        <span class="hidden-text">{{ account.password }}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('{{ account.password }}')">
+                            📋
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if account.payment_status == 'paid' %}
+                <div class="payment-info">
+                    <div>
+                        <div class="field-label">Paid By</div>
+                        <div>{{ account.paid_by|default:"-" }}</div>
+                    </div>
+                    <div>
+                        <div class="field-label">Card</div>
+                        <div>{{ account.card_used|default:"-" }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if account.notes %}
+                <div class="notes">
+                    "{{ account.notes }}"
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-secondary);">
+                <h3>No accounts found</h3>
+                <p>Add your first account to get started.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Copied to clipboard!</div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

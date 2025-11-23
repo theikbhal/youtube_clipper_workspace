@@ -12,7 +12,7 @@ def home(request):
         },
         {
             "name": "Vault (Password Manager)",
-            "url": "/admin/vault/account/"
+            "url": "/vault/"
         },
         {
             "name": "APK Generator",

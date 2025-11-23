@@ -3,6 +3,11 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", include("home.urls")),
@@ -10,6 +15,7 @@ urlpatterns = [
     path('clips/', include('clips.urls')),
     path("go/", include("golinks.urls")),
     path("apkgen/", include("apkgen.urls")),
+    path("vault/", include("vault.urls")),
 ]
 
 
