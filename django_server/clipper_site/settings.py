@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'clips',
     'golinks',  
     "apkgen",
-
+    "vault",
 ]
 
 MIDDLEWARE = [
