@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tawhid GoLinks Manager</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <div class="panel-app">
+    <header>
+      <div class="title-row">
+        <div class="title-main">
+          <span class="logo">🔗</span>
+          <div>
+            <h1>GoLinks Manager</h1>
+            <p class="subtitle">Create, search, edit & delete go/ keys.</p>
+          </div>
+        </div>
+        <span class="badge">v2</span>
+      </div>
+
+      <div class="search-row">
+        <input id="search-input" type="text" placeholder="Search key… (gt, yt, docs)" />
+        <button id="new-link-btn">+ New</button>
+      </div>
+    </header>
+
+    <section id="form-section" class="card hidden">
+      <form id="link-form">
+        <div class="form-row">
+          <label for="key-field">Key</label>
+          <div class="prefix-input">
+            <span>go/</span>
+            <input id="key-field" type="text" required autocomplete="off"
+                   placeholder="gt, yt, notion" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="url-field">Target URL</label>
+          <input id="url-field" type="url" required
+                 placeholder="https://google.com, https://youtube.com/watch?v=…" />
+        </div>
+
+        <div class="form-row">
+          <label for="desc-field">Notes (optional)</label>
+          <textarea id="desc-field" rows="2"
+                    placeholder="What is this link for?"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-edit-btn" class="ghost">Cancel</button>
+          <button type="submit" id="save-btn">Save</button>
+        </div>
+
+        <p id="form-status" class="status"></p>
+      </form>
+    </section>
+
+    <section id="list-section">
+      <div id="list-header" class="list-header">
+        <span class="list-title">Links</span>
+        <span id="count-badge" class="count-badge">0</span>
+      </div>
+
+      <div id="list-loading" class="info">Loading…</div>
+      <div id="list-empty" class="info hidden">No links yet. Create your first go/ key!</div>
+      <div id="list-error" class="info error hidden"></div>
+
+      <div id="links-list" class="links-list"></div>
+    </section>
+
+    <footer>
+      <a href="https://app.tawhid.in/go/ui" target="_blank">Open full GoLinks UI ↗</a>
+    </footer>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>

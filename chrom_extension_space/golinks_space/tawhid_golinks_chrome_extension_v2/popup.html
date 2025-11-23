@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tawhid GoLinks</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <span class="logo">🔗</span>
+      <div class="titles">
+        <h1>Tawhid GoLinks</h1>
+        <p class="subtitle">Type a key, jump to a link.</p>
+      </div>
+    </header>
+
+    <form id="go-form">
+      <label for="key-input">Go key</label>
+      <div class="input-row">
+        <span class="prefix">go/</span>
+        <input id="key-input" type="text" autocomplete="off"
+               placeholder="gt, yt, docs, notion…" />
+      </div>
+      <button type="submit" id="open-btn">🚀 Open link</button>
+    </form>
+
+    <section id="recent-section" class="hidden">
+      <h2>Recent keys</h2>
+      <div id="recent-keys" class="chips"></div>
+    </section>
+
+    <footer>
+      <p class="hint">
+        Tip: In the address bar, type <strong>go</strong> + Space + your key
+        (ex: <code>go gt</code>)
+      </p>
+      <a href="https://app.tawhid.in/go/ui" target="_blank" class="manage-link">
+        Open GoLinks dashboard
+      </a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
