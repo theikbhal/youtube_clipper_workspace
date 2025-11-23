@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Tawhid GoLinks",
+  "description": "Open your app.tawhid.in go links from Chrome using a fun popup and the 'go' omnibox keyword.",
+  "version": "0.1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Open a GoLink",
+    "default_icon": {
+      "16": "icon-16.png",
+      "48": "icon-48.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://app.tawhid.in/*"
+  ],
+  "omnibox": {
+    "keyword": "go"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}

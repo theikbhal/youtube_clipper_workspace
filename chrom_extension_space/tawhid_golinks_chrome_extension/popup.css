@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #e0f2fe, #f5f3ff);
+  color: #111827;
+  min-width: 320px;
+}
+
+.app {
+  padding: 12px 14px 10px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  font-size: 26px;
+}
+
+.titles h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #4b5563;
+}
+
+form {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  border-radius: 999px;
+  padding: 4px 6px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.prefix {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+#key-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 13px;
+  padding: 4px 6px;
+}
+
+#open-btn {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: white;
+  margin-top: 4px;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3);
+}
+
+#open-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+#open-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.35);
+}
+
+h2 {
+  font-size: 12px;
+  margin: 0 0 4px;
+  color: #4b5563;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-size: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip span {
+  font-weight: 600;
+}
+
+.chip small {
+  color: #6b7280;
+}
+
+footer {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.hint {
+  margin: 0 0 4px;
+}
+
+.manage-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.manage-link::after {
+  content: "↗";
+  font-size: 10px;
+}
+
+.hidden {
+  display: none;
+}
